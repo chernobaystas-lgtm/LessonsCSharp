@@ -15,33 +15,19 @@ namespace Lesson_PracticeWork2
             OutputEncoding = System.Text.Encoding.UTF8;
             InputEncoding = System.Text.Encoding.UTF8;
 
-            Console.Write("Введите элементы массива через пробел: ");
+            Console.Write("Введите предложение: ");
 
-            string[] numbersAsString = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            int[] numbers = numbersAsString.Select(int.Parse).ToArray();
+            string sentence = Console.ReadLine();
 
-            Console.Write("Введите элементы массива через пробел: ");
+            string[] words = sentence.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-            string[] numbersAsString1 = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            int[] numbers2 = numbersAsString1.Select(int.Parse).ToArray();
+            int wordCount = words.Length;
 
-            int[][] arrays = {
-                numbers,
-                numbers2
-            };
-
-            int[] newnumbersarray = new int[numbers.Length + numbers2.Length];
-
-            Array.Copy(numbers, 0, newnumbersarray, 0, numbers.Length);
-
-            Array.Copy(numbers2, 0, newnumbersarray, numbers.Length, numbers2.Length);
+            Console.WriteLine($"Количество слов в предложении: {wordCount}");
 
 
-            int maxNumber = newnumbersarray.Max();
-            int minNumber = newnumbersarray.Min();
 
-            Console.WriteLine($"Максимальное число: {maxNumber}");
-            Console.WriteLine($"Минимальное число: {minNumber}");
+
 
         }
     }
