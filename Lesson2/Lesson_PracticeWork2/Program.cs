@@ -30,9 +30,15 @@ namespace Lesson_PracticeWork2
                 numbers2
             };
 
-            int[] newnumbersarray = numbers.Concat(numbers2).ToArray();
+            int[] newnumbersarray = new int[numbers.Length + numbers2.Length];
+
+            Array.Copy(numbers, 0, newnumbersarray, 0, numbers.Length);
+
+            Array.Copy(numbers2, 0, newnumbersarray, numbers.Length, numbers2.Length);
+
 
             Console.WriteLine("Объединяемый массив: " + string.Join(" ", newnumbersarray));
+
         }
     }
 }
