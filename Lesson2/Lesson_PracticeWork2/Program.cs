@@ -4,6 +4,7 @@ using System.ComponentModel;
 using static System.Array;
 using static System.Console;
 using static System.Convert;
+using static System.String;
 
 namespace Lesson_PracticeWork2
 {
@@ -21,12 +22,18 @@ namespace Lesson_PracticeWork2
 
             string[] words = sentence.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-            int wordCount = words.Length;
+            foreach (string word in words)
+            {
+                char[] charArray = word.ToCharArray();
 
-            Console.WriteLine($"Количество слов в предложении: {wordCount}");
+                Array.Reverse(charArray);
 
-            // 6666666666
+                string reversedWord = new string(charArray);
 
+                Console.Write(reversedWord + " ");
+            }
+
+            Console.WriteLine(); 
 
 
         }
