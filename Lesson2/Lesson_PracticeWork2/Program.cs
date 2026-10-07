@@ -16,24 +16,21 @@ namespace Lesson_PracticeWork2
             OutputEncoding = System.Text.Encoding.UTF8;
             InputEncoding = System.Text.Encoding.UTF8;
 
-            Console.Write("Введите предложение: ");
+            Console.Write("Введіть речення: ");
+            string sentence = Console.ReadLine().ToLower();
 
-            string sentence = Console.ReadLine();
+            string vowels = "аеєиіїоуюяaeiouy";
+            int count = 0;
 
-            string[] words = sentence.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (string word in words)
+            foreach (char c in sentence)
             {
-                char[] charArray = word.ToCharArray();
-
-                Array.Reverse(charArray);
-
-                string reversedWord = new string(charArray);
-
-                Console.Write(reversedWord + " ");
+                if (vowels.Contains(c.ToString()))
+                {
+                    count++;
+                }
             }
 
-            Console.WriteLine(); 
+            Console.WriteLine($"Кількість голосних літер у реченні: {count}");
 
 
         }
