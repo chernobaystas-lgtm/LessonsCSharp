@@ -37,7 +37,11 @@ namespace Lesson_PracticeWork2
             Array.Copy(numbers2, 0, newnumbersarray, numbers.Length, numbers2.Length);
 
 
-            Console.WriteLine("Объединяемый массив: " + string.Join(" ", newnumbersarray));
+            int maxNumber = newnumbersarray.Max();
+            int minNumber = newnumbersarray.Min();
+
+            Console.WriteLine($"Максимальное число: {maxNumber}");
+            Console.WriteLine($"Минимальное число: {minNumber}");
 
         }
     }
