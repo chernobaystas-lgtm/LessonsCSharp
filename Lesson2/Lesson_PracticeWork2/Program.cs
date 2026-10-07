@@ -14,7 +14,9 @@ namespace Lesson_PracticeWork2
             OutputEncoding = System.Text.Encoding.UTF8;
             InputEncoding = System.Text.Encoding.UTF8;
 
-            string[] numbersAsString = { "5", "2", "8", "2", "5", "11", "4" };
+            Console.Write("Введите элементы массива через пробел: ");
+            
+            string[] numbersAsString = Console.ReadLine().Split(' ');
 
             int[] numbers = numbersAsString.Select(int.Parse).ToArray();
 
