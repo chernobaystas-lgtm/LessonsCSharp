@@ -25,7 +25,7 @@ namespace Lesson_PracticeWork2
 
             Console.WriteLine($"Количество слов в предложении: {wordCount}");
 
-
+            // 6666666666
 
 
 
