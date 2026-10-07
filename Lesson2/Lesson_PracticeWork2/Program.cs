@@ -1,8 +1,9 @@
 ﻿
+using Microsoft.VisualBasic;
 using System.ComponentModel;
+using static System.Array;
 using static System.Console;
 using static System.Convert;
-using static System.Array;
 
 namespace Lesson_PracticeWork2
 {
@@ -15,20 +16,33 @@ namespace Lesson_PracticeWork2
             InputEncoding = System.Text.Encoding.UTF8;
 
             Console.Write("Введите элементы массива через пробел: ");
-            
-            string[] numbersAsString = Console.ReadLine().Split(' ');
 
+            string[] numbersAsString = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
             int[] numbers = numbersAsString.Select(int.Parse).ToArray();
 
-            int evenCount = numbers.Where(n => n % 2 == 0).Count();
+            Console.Write("Введите число с котрим, мы будем сравнивать: ");
+            int comparisonNumber = int.Parse(Console.ReadLine());
 
-            int oddCount = numbers.Where(n => n % 2 != 0).Count();
-
-            int uniqueCount = numbers.Distinct().Count();
-
-            Console.WriteLine($"Четных: {evenCount}");    
-            Console.WriteLine($"Нечетных: {oddCount}");   
-            Console.WriteLine($"Уникальных: {uniqueCount}");
+            int biggerCount = 0;
+            for (var i = 0; i < numbers.Length; i++)
+            {
+                if (numbers[i] > comparisonNumber)
+                {
+                    Console.WriteLine($"Элемент {numbers[i]} больше числа {comparisonNumber}");
+                    
+                }
+                else if (numbers[i] < comparisonNumber)
+                {
+                    Console.WriteLine($"Элемент {numbers[i]} меньше числа {comparisonNumber}");
+                    biggerCount++;
+                }
+                else
+                {
+                    Console.WriteLine($"Элемент {numbers[i]} равен числу {comparisonNumber}");
+                }
+            }
+            ReadLine();
+            Console.WriteLine($"Количество элементов, больших числа {comparisonNumber}: {biggerCount}");
 
         }
     }
