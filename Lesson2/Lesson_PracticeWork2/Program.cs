@@ -20,24 +20,21 @@ namespace Lesson_PracticeWork2
             string[] numbersAsString = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
             int[] numbers = numbersAsString.Select(int.Parse).ToArray();
 
-            Console.Write("Введите элемент комбинации, который будем искать: ");
+            Console.Write("Введите элементы массива через пробел: ");
+
             string[] numbersAsString1 = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            int[] numbers1 = numbersAsString1.Select(int.Parse).ToArray();
+            int[] numbers2 = numbersAsString1.Select(int.Parse).ToArray();
 
+            int[][] arrays = {
+                numbers,
+                numbers2
+            };
 
-            int combinationCount = 0;
+            int[] newnumbersarray = numbers.Concat(numbers2).ToArray();
 
-            for (int i = 0; i <= numbers.Length - numbers1.Length; i++)
-            {
-                if (numbers.Skip(i).Take(numbers1.Length).SequenceEqual(numbers1))
-                {
-                    combinationCount++;
-                }
-
-            }
-            Console.WriteLine($"Всего найдено комбинаций в массиве: {combinationCount}");
-
-
-} } }
+            Console.WriteLine("Объединяемый массив: " + string.Join(" ", newnumbersarray));
+        }
+    }
+}
     
     
