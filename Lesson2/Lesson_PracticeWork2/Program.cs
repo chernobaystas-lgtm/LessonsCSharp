@@ -20,30 +20,24 @@ namespace Lesson_PracticeWork2
             string[] numbersAsString = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
             int[] numbers = numbersAsString.Select(int.Parse).ToArray();
 
-            Console.Write("Введите число с котрим, мы будем сравнивать: ");
-            int comparisonNumber = int.Parse(Console.ReadLine());
+            Console.Write("Введите элемент комбинации, который будем искать: ");
+            string[] numbersAsString1 = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            int[] numbers1 = numbersAsString1.Select(int.Parse).ToArray();
 
-            int biggerCount = 0;
-            for (var i = 0; i < numbers.Length; i++)
+
+            int combinationCount = 0;
+
+            for (int i = 0; i <= numbers.Length - numbers1.Length; i++)
             {
-                if (numbers[i] > comparisonNumber)
+                if (numbers.Skip(i).Take(numbers1.Length).SequenceEqual(numbers1))
                 {
-                    Console.WriteLine($"Элемент {numbers[i]} больше числа {comparisonNumber}");
-                    
+                    combinationCount++;
                 }
-                else if (numbers[i] < comparisonNumber)
-                {
-                    Console.WriteLine($"Элемент {numbers[i]} меньше числа {comparisonNumber}");
-                    biggerCount++;
-                }
-                else
-                {
-                    Console.WriteLine($"Элемент {numbers[i]} равен числу {comparisonNumber}");
-                }
-            }
-            ReadLine();
-            Console.WriteLine($"Количество элементов, больших числа {comparisonNumber}: {biggerCount}");
 
-        }
-    }
-}
+            }
+            Console.WriteLine($"Всего найдено комбинаций в массиве: {combinationCount}");
+
+
+} } }
+    
+    
