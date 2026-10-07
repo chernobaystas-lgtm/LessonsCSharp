@@ -16,21 +16,22 @@ namespace Lesson_PracticeWork2
             OutputEncoding = System.Text.Encoding.UTF8;
             InputEncoding = System.Text.Encoding.UTF8;
 
-            Console.Write("Введіть речення: ");
-            string sentence = Console.ReadLine().ToLower();
+            Console.Write("Користувач ввів: ");
+            string sourceString = Console.ReadLine();
 
-            string vowels = "аеєиіїоуюяaeiouy";
+            Console.Write("підрядок для пошуку: ");
+            string searchWord = Console.ReadLine();
+
             int count = 0;
+            int index = 0;
 
-            foreach (char c in sentence)
+            while ((index = sourceString.IndexOf(searchWord, index)) != -1)
             {
-                if (vowels.Contains(c.ToString()))
-                {
-                    count++;
-                }
+                count++;
+                index += searchWord.Length; 
             }
 
-            Console.WriteLine($"Кількість голосних літер у реченні: {count}");
+            Console.WriteLine($"результат пошуку: {count}");
 
 
         }
