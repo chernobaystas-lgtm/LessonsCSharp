@@ -7,67 +7,60 @@ namespace Lesson_HomeWork2{
     {
         static public Random randoms = new Random();
 
+        static public int[][] CreateRandomArray(int rows, int cols)
+        {
+            int[][] array = new int[rows][];
+            for (int i = 0; i < rows; ++i)
+            {
+                array[i] = new int[cols];
+                for (int j = 0; j < cols; ++j)
+                {
+                    array[i][j] = randoms.Next(-100, 101);
+                }
+            }
+            return array;
+        }
+
+        static public void PrintArray(int[][] array)
+        {
+            for (int i = 0; i < array.Length; ++i)
+            {
+                for (int j = 0; j < array[i].Length; ++j)
+                {
+                    Write($"{array[i][j]}\t");
+                }
+                WriteLine();
+            }
+        }
         static void Main(string[] args)
         {
-            int[] a = new int[5];
-            for (int i = 0; i < a.Length; ++i)
+
+            int[][] array = CreateRandomArray(5, 5);
+            PrintArray(array);
+
+
+            int min = array[0][0], max = array[0][0];
+            int minPos = 0, maxPos = 0;
+
+            for (int i = 0; i < 5; i++)
             {
-                Write($"Введите {i + 1} элемент массива: ");
-                a[i] = ToInt32(ReadLine());
-            }
-            double[][] B = new double[3][];
-            for (int i = 0; i < B.Length; ++i)
-            {
-                B[i] = new double[4];
-            }
-            Console.WriteLine("Массив B: \n");
-            for (int i = 0; i < B.Length; ++i)
-            {
-                for (int j = 0; j < B[i].Length; ++j)
+                for (int j = 0; j < 5; j++)
                 {
-                    B[i][j] = randoms.NextDouble() * 200 - 100;
-                    Console.Write($"{B[i][j],8:F2}");
-                }
-                Console.WriteLine();
-            }
-
-
-            double max = a[0];
-            double min = a[0];
-            double sum = 0;
-            double product = 1;
-            double evenSumA = 0;
-            double oddColumnsSumB = 0;
-
-            for (int i = 0; i < a.Length; ++i)
-            {
-                if (a[i] > max) max = a[i];
-                if (a[i] < min) min = a[i];
-                sum += a[i];
-                product *= a[i];
-                if (a[i] % 2 == 0) evenSumA += a[i];
-            }
-
-            for (int i = 0; i < B.Length; ++i)
-            {
-                for (int j = 0; j < B[i].Length; ++j)
-                {
-                    if (B[i][j] > max) max = B[i][j];
-                    if (B[i][j] < min) min = B[i][j];
-                    sum += B[i][j];
-                    product *= B[i][j];
-                    if (j % 2 == 0) oddColumnsSumB += B[i][j];
+                    int pos = i * 5 + j;
+                    if (array[i][j] < min) { min = array[i][j]; minPos = pos; }
+                    if (array[i][j] > max) { max = array[i][j]; maxPos = pos; }
                 }
             }
+            Write($"Min value: {min} at position {minPos}\nMax value: {max} at position {maxPos}");
 
-            Console.WriteLine();
-            Console.WriteLine($"Максимум: {max:F2}");
-            Console.WriteLine($"Минимум: {min:F2}");
-            Console.WriteLine($"Сумма всех элементов: {sum:F2}");
-            Console.WriteLine($"Произведение всех элементов: {product:E3}");
-            Console.WriteLine($"Сумма чётных элементов A: {evenSumA}");
-            Console.WriteLine($"Сумма нечётных столбцов B: {oddColumnsSumB:F2}");
-
+            int sumFromMinToMax = 0;
+            for(int i = Math.Min(minPos, maxPos); i <= Math.Max(minPos, maxPos); i++)
+            {
+                int row = i / 5;
+                int col = i % 5;
+                sumFromMinToMax += array[row][col];
+            }
+            Write($"\nSum from min to max: {sumFromMinToMax}\n");
         }
     }
 }
