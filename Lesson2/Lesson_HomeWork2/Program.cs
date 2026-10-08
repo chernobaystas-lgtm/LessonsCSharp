@@ -14,51 +14,35 @@ namespace Lesson_HomeWork2{
 
             OutputEncoding = System.Text.Encoding.UTF8;
             InputEncoding = System.Text.Encoding.UTF8;
-            while (true)
+            Write("Введіть предложение: ");
+            char[] input = ReadLine().ToCharArray();
+            bool IsUpper = true;
+            char fullStop = '.';
+            char questionMark = '?';
+            char exclamationMark = '!';
+
+
+            for (int i = 0; i < input.Length; i++)
             {
-                Console.Write("Введіть вираз (або 'стоп'): ");
-                string input = Console.ReadLine() ?? "";
-
-                if (input.Trim().ToLower() == "стоп")
+                if (IsUpper)
                 {
-                    break;
+                    input[i] = char.ToUpper(input[i]);
+                    IsUpper = false;
                 }
-
-                if (TryCalculate(input, out long result))
+                else if (!char.IsLetter(input[i]))
                 {
-                    Console.WriteLine($"Результат: {result}\n");
+                    input[i] = char.ToUpper(input[i + 1]);
+                    IsUpper = false;
                 }
                 else
                 {
-                    Console.WriteLine("Помилка: приклад правильного виразу 12 + 5 - 3\n");
+                    input[i] = char.ToLower(input[i]);
                 }
             }
+            WriteLine(new string(input));
         }
 
-        static bool TryCalculate(string expression, out long result)
-        {
-            result = 0;
 
-            string clean = expression.Replace(" ", "").Replace("-", "+-");
-
-            if (clean.StartsWith("+"))
-            {
-                clean = clean.Substring(1); // вираз починався з мінуса
-            }
-
-            string[] parts = clean.Split('+');
-
-            foreach (string part in parts)
-            {
-                if (!int.TryParse(part, out int number))
-                {
-                    return false;
-                }
-                result += number;
-            }
-
-            return true;
-        }
     }
 }
 
