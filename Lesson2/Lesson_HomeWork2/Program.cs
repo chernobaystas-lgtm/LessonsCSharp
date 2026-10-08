@@ -7,60 +7,54 @@ namespace Lesson_HomeWork2{
     {
         static public Random randoms = new Random();
 
-        static public int[][] CreateRandomArray(int rows, int cols)
-        {
-            int[][] array = new int[rows][];
-            for (int i = 0; i < rows; ++i)
-            {
-                array[i] = new int[cols];
-                for (int j = 0; j < cols; ++j)
-                {
-                    array[i][j] = randoms.Next(-100, 101);
-                }
-            }
-            return array;
-        }
 
-        static public void PrintArray(int[][] array)
-        {
-            for (int i = 0; i < array.Length; ++i)
-            {
-                for (int j = 0; j < array[i].Length; ++j)
-                {
-                    Write($"{array[i][j]}\t");
-                }
-                WriteLine();
-            }
-        }
         static void Main(string[] args)
         {
+            Console.Write("Введіть рядок: ");
+            string text = Console.ReadLine() ?? "";
 
-            int[][] array = CreateRandomArray(5, 5);
-            PrintArray(array);
+            int shift = ReadInt("Введіть зсув: ");
 
+            string encrypted = Encrypt(text, shift);
+            Console.WriteLine($"Зашифровано: {encrypted}");
+            Console.WriteLine($"Розшифровано: {Encrypt(encrypted, -shift)}");
 
-            int min = array[0][0], max = array[0][0];
-            int minPos = 0, maxPos = 0;
+            Console.ReadLine();
+        }
 
-            for (int i = 0; i < 5; i++)
+        static string Encrypt(string text, int shift)
+        {
+            string[] alphabets =
             {
-                for (int j = 0; j < 5; j++)
+                "abcdefghijklmnopqrstuvwxyz",
+                "абвгґдеєжзиіїйклмнопрстуфхцчшщьюя"
+            };
+
+            char[] result = text.ToCharArray();
+
+            for (int i = 0; i < result.Length; i++)
+            {
+                foreach (string alphabet in alphabets)
                 {
-                    int pos = i * 5 + j;
-                    if (array[i][j] < min) { min = array[i][j]; minPos = pos; }
-                    if (array[i][j] > max) { max = array[i][j]; maxPos = pos; }
+                    int index = alphabet.IndexOf(char.ToLower(result[i]));
+                    if (index == -1) continue; 
+
+                    int n = alphabet.Length;
+                    int newIndex = ((index + shift) % n + n) % n;
+                    char letter = alphabet[newIndex];
+
+                    result[i] = char.IsUpper(result[i]) ? char.ToUpper(letter) : letter;
+                    break;
                 }
             }
-            Write($"Min value: {min} at position {minPos}\nMax value: {max} at position {maxPos}");
 
-            int sumFromMinToMax = 0;
-            for(int i = Math.Min(minPos, maxPos); i <= Math.Max(minPos, maxPos); i++)
-            {
-                int row = i / 5;
-                int col = i % 5;
-                sumFromMinToMax += array[row][col];
-            }
-            Write($"\nSum from min to max: {sumFromMinToMax}\n");
+            return new string(result);
+        }
+
+
+
+
+
         }
     }
 }
