@@ -11,30 +11,81 @@ namespace Lesson_PracticeWork3
             OutputEncoding = System.Text.Encoding.UTF8;
             InputEncoding = System.Text.Encoding.UTF8;
 
-            WriteLine("Введите начало диапазона:");
-            string input = ReadLine();
-            if (!int.TryParse(input, out int fabonaci))
+
+            Write("Сколько строк в массиве? ");
+            int rows = Convert.ToInt32(ReadLine());
+            int[][] jagged = new int[rows][];
+            for (int i = 0; i < jagged.Length; i++)
             {
-                WriteLine("Ошибка ввода. Введите целое число.");
-                return;
+                Write($"Сколько элементов в строке {i}? ");
+                int cols = Convert.ToInt32(ReadLine());
+                jagged[i] = new int[cols];
+                for (int j = 0; j < jagged[i].Length; j++)
+                {
+                    Console.Write($"jagged[{i}][{j}]: ");
+                    jagged[i][j] = Convert.ToInt32(Console.ReadLine());
+                }
             }
-            
-            int Realfabonaci = ISNumberFabonaci(fabonaci);
-            WriteLine($"F({fabonaci}) = {Realfabonaci}");
+            PrintArray(jagged);
+
+            WriteLine("Массив з суммою чисел в строке массива в кінці");
+
+            PrintArray(SumOfRowInBack(jagged));
         }
 
-        private static int ISNumberFabonaci(int n)
+        static void PrintArray(int[][] jagged)
         {
-            if (n <= 0) return 0;
-            if (n == 1) return 1;
-            int a = 0, b = 1;
-            for (int i = 2; i <= n; i++)
+            WriteLine();
+            WriteLine("Массив:");
+            if (jagged == null)
             {
-                int t = a + b;
-                a = b;
-                b = t;
+                WriteLine("null");
+                WriteLine("Массив не инициализирован");
+                return;
             }
-            return b;
+            for (int i = 0; i < jagged.Length; i++)
+            {
+                Write($"[{i}]: ");
+                if (jagged[i] == null)
+                {
+                    WriteLine("null");
+                    continue;
+                }
+                for (int j = 0; j < jagged[i].Length; j++)
+                {
+                    Write(jagged[i][j]);
+                    if (j + 1 < jagged[i].Length) Write(" ");
+                }
+                WriteLine();
+            }
+        }
+
+        static int[][] SumOfRowInBack(int[][] jagged)
+        {
+            if (jagged == null) return null;
+
+            int[][] result = new int[jagged.Length][];
+            for (int i = 0; i < jagged.Length; i++)
+            {
+                if (jagged[i] == null)
+                {
+                    result[i] = null;
+                    continue;
+                }
+
+                int len = jagged[i].Length;
+                int[] row = new int[len + 1];
+                int sum = 0;
+                for (int j = 0; j < len; j++)
+                {
+                    row[j] = jagged[i][j];
+                    sum += jagged[i][j];
+                }
+                row[len] = sum; 
+                result[i] = row;
+            }
+
+            return result;
         }
     }
 }
