@@ -33,14 +33,14 @@ namespace Lesson_PracticeWork3
             PrintArray(SumOfRowInBack(jagged));
         }
 
-        static void PrintArray(int[][] jagged)
+        static void PrintArray(int[][] ? jagged)
         {
             WriteLine();
             WriteLine("Массив:");
             if (jagged == null)
             {
                 WriteLine("null");
-                WriteLine("Массив не инициализирован");
+                WriteLine(" не створений ");
                 return;
             }
             for (int i = 0; i < jagged.Length; i++)
@@ -65,23 +65,22 @@ namespace Lesson_PracticeWork3
             if (jagged == null) return null;
 
             int[][] result = new int[jagged.Length][];
+
             for (int i = 0; i < jagged.Length; i++)
             {
-                if (jagged[i] == null)
+                if (jagged[i] == null) continue;
+
+                int[] row = jagged[i];
+
+                int sum = 0;
+                foreach (int number in row)
                 {
-                    result[i] = null;
-                    continue;
+                    sum += number;
                 }
 
-                int len = jagged[i].Length;
-                int[] row = new int[len + 1];
-                int sum = 0;
-                for (int j = 0; j < len; j++)
-                {
-                    row[j] = jagged[i][j];
-                    sum += jagged[i][j];
-                }
-                row[len] = sum; 
+                Array.Resize(ref row, row.Length + 1); 
+                row[row.Length - 1] = sum;            
+
                 result[i] = row;
             }
 
