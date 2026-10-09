@@ -12,40 +12,29 @@ namespace Lesson_PracticeWork3
             InputEncoding = System.Text.Encoding.UTF8;
 
             WriteLine("Введите начало диапазона:");
-            int begin = ToInt32(ReadLine());
-            if (int.TryParse(ReadLine(), out begin) == false)
+            string input = ReadLine();
+            if (!int.TryParse(input, out int fabonaci))
             {
                 WriteLine("Ошибка ввода. Введите целое число.");
                 return;
             }
-            WriteLine("Введите конец диапазона:");
-            int end = ToInt32(ReadLine());
-            if (int.TryParse(ReadLine(), out end) == false)
-            {
-                WriteLine("Ошибка ввода. Введите целое число.");
-                return;
-            }
-            if (begin > end)
-            {
-                int buffer = begin;
-                begin = end;
-                end = buffer;
-            }
-
-
-
-            long Powsum = ProductNumbers(begin, end);
-            WriteLine($"Произведение чисел от {begin} до {end} равно {Powsum}");
+            
+            int Realfabonaci = ISNumberFabonaci(fabonaci);
+            WriteLine($"F({fabonaci}) = {Realfabonaci}");
         }
 
-        static long ProductNumbers(int begin, int end)
+        private static int ISNumberFabonaci(int n)
         {
-            long product = 1;
-            for (int i = begin; i <= end; i++)
+            if (n <= 0) return 0;
+            if (n == 1) return 1;
+            int a = 0, b = 1;
+            for (int i = 2; i <= n; i++)
             {
-                product *= i;
+                int t = a + b;
+                a = b;
+                b = t;
             }
-            return product;
+            return b;
         }
     }
 }
