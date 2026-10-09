@@ -8,53 +8,25 @@ namespace Lesson_PracticeWork3
     {
         static void Main(string[] args)
         {
-            Write("Введіть рядок: ");
-            string input = ReadLine() ?? "";
+            OutputEncoding = System.Text.Encoding.UTF8;
 
-            string result = ProcessText(input);
-            WriteLine($"Результат: {result}");
+            int[] myArray = { 1, 2, 3 };
 
+            WriteLine("Масив до об'єднання: " + string.Join(", ", myArray));
 
+            MergeWithSequence(ref myArray, 4, 5, 6, 7);
 
+            WriteLine("Масив після об'єднання: " + string.Join(", ", myArray));
         }
 
-        public static string ProcessText(string inputText)
+        public static void MergeWithSequence(ref int[] baseArray, params int[] sequence)
         {
-            string[] words = inputText.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            int oldLength = baseArray.Length;
 
-            for (int i = 0; i < words.Length; i++)
-            {
-                string rawWord = words[i];
+            Resize(ref baseArray, oldLength + sequence.Length);
 
-                if (rawWord.Length > 0)
-                {
-                    int cleanLength = rawWord.Length;
-                    while (cleanLength > 0 && char.IsPunctuation(rawWord[cleanLength - 1]))
-                    {
-                        cleanLength--;
-                    }
-
-                    string word = rawWord.Substring(0, cleanLength);
-                    string punctuation = rawWord.Substring(cleanLength);
-
-                    if (word.Length > 0)
-                    {
-                        string lowerWord = word.ToLower();
-                        char firstChar = lowerWord[0];
-
-                        if (lowerWord.IndexOf(firstChar, 1) != -1)
-                        {
-                            words[i] = word.ToUpper() + punctuation;
-                        }
-                        else
-                        {
-                            words[i] = word + punctuation;
-                        }
-                    }
-                    
-                }
-            }
-            return string.Join(" ", words);
+            Copy(sequence, 0, baseArray, oldLength, sequence.Length);
         }
+
     }
 }
