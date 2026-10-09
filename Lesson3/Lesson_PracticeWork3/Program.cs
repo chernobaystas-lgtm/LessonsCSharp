@@ -24,17 +24,36 @@ namespace Lesson_PracticeWork3
 
             for (int i = 0; i < words.Length; i++)
             {
-                string word = words[i];
+                string rawWord = words[i];
 
-                if (word.Length >= 2)
+                if (rawWord.Length > 0)
                 {
-                    if (word[0] == word[1])
+                    int cleanLength = rawWord.Length;
+                    while (cleanLength > 0 && char.IsPunctuation(rawWord[cleanLength - 1]))
                     {
-                        words[i] = word.ToUpper(); 
+                        cleanLength--;
                     }
+
+                    string word = rawWord.Substring(0, cleanLength);
+                    string punctuation = rawWord.Substring(cleanLength);
+
+                    if (word.Length > 0)
+                    {
+                        string lowerWord = word.ToLower();
+                        char firstChar = lowerWord[0];
+
+                        if (lowerWord.IndexOf(firstChar, 1) != -1)
+                        {
+                            words[i] = word.ToUpper() + punctuation;
+                        }
+                        else
+                        {
+                            words[i] = word + punctuation;
+                        }
+                    }
+                    
                 }
             }
-
             return string.Join(" ", words);
         }
     }
